@@ -1,0 +1,20 @@
+@host = http://localhost:3003
+
+### get all blogs
+
+GET {{host}}/api/blogs
+
+
+### create blog
+
+POST {{host}}/api/blogs
+Content-Type: application/json
+
+{
+  "title": "a",
+  "author": "b",
+  "url": "c",
+  "likes": 10
+}
+
+###
