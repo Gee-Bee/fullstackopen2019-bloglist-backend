@@ -22,14 +22,12 @@ const favoriteBlog = (blogs) => {
 const mostBlogsVanillaJS = (blogs) => {
   if (blogs.length === 0)
     return undefined;
-  let authors = {}
+  let authorBlogs = {}
   blogs.forEach(blog =>
-    authors[blog.author] = (authors[blog.author] || 0) + 1
+    authorBlogs[blog.author] = (authorBlogs[blog.author] || 0) + 1
   );
-  const [ author, count ]  = Object.entries(authors).reduce(
-    (acc, curr) => {
-      return acc[1] > curr[1] ? acc : curr;
-    }
+  const [ author, count ]  = Object.entries(authorBlogs).reduce(
+    (acc, curr) => acc[1] > curr[1] ? acc : curr
   );
   return {
     author,
@@ -38,13 +36,40 @@ const mostBlogsVanillaJS = (blogs) => {
 };
 
 const mostBlogs = (blogs) => {
-  const authors = _.countBy(blogs, 'author')
-  const name = _.maxBy(_.keys(authors), name => authors[name])
+  const authorBlogs = _.countBy(blogs, 'author')
+  const name = _.maxBy(_.keys(authorBlogs), name => authorBlogs[name])
   return name && {
     author: name,
-    blogs: authors[name],
+    blogs: authorBlogs[name],
   };
 };
+
+const mostLikesVanillaJS = (blogs) => {
+  if (blogs.length === 0)
+    return undefined;
+  let authorLikes = {}
+  blogs.forEach(blog =>
+    authorLikes[blog.author] = (authorLikes[blog.author] || 0) + blog.likes
+  );
+  const [ author, likes ]  = Object.entries(authorLikes).reduce(
+    (acc, curr) => acc[1] > curr[1] ? acc : curr
+  );
+  return {
+    author,
+    likes,
+  }
+};
+
+const mostLikes = (blogs) => {
+  const authorLikes = _.transform(blogs, (acc, blog) => {
+    acc[blog.author] = (acc[blog.author] || 0) + blog.likes;
+  }, {});
+  const name = _.maxBy(_.keys(authorLikes), name => authorLikes[name])
+  return name && {
+    author: name,
+    likes: authorLikes[name],
+  }
+}
 
 module.exports = {
   dummy,
@@ -52,4 +77,6 @@ module.exports = {
   favoriteBlog,
   mostBlogsVanillaJS,
   mostBlogs,
+  mostLikesVanillaJS,
+  mostLikes,
 }

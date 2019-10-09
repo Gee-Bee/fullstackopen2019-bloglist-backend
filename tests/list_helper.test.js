@@ -94,22 +94,54 @@ describe('favorite blog', () => {
   })
 });
 
-describe.only('most blogs', () => {
+describe('most blogs', () => {
   test('of empty list is undefined', () => {
-    expect(listHelper.mostBlogs([])).toBe(undefined);
+    const expected = undefined;
+    expect(listHelper.mostBlogsVanillaJS([])).toBe(expected);
+    expect(listHelper.mostBlogs([])).toBe(expected);
   });
 
   test('when list has only one blog return this author', () => {
-    expect(listHelper.mostBlogs([blogs[0]])).toEqual({
+    const expected = {
       author: "Michael Chan",
       blogs: 1
-    })
+    };
+    expect(listHelper.mostBlogsVanillaJS([blogs[0]])).toEqual(expected);
+    expect(listHelper.mostBlogs([blogs[0]])).toEqual(expected);
   });
 
   test('of bigger list return author with most blogs', () => {
-    expect(listHelper.mostBlogs(blogs)).toEqual({
+    const expected = {
       author: 'Robert C. Martin',
       blogs: 3
-    });
+    };
+    expect(listHelper.mostBlogsVanillaJS(blogs)).toEqual(expected);
+    expect(listHelper.mostBlogs(blogs)).toEqual(expected);
+  })
+});
+
+describe('most likes', () => {
+  test('of empty list is undefined', () => {
+    const expected = undefined;
+    expect(listHelper.mostLikesVanillaJS([])).toBe(expected);
+    expect(listHelper.mostLikes([])).toBe(expected);
+  });
+
+  test('when list has only one blog return this author', () => {
+    const expected = {
+      author: "Michael Chan",
+      likes: 7
+    };
+    expect(listHelper.mostLikesVanillaJS([blogs[0]])).toEqual(expected);
+    expect(listHelper.mostLikes([blogs[0]])).toEqual(expected);
+  });
+
+  test('of bigger list return author with most blogs', () => {
+    const expected = {
+      author: 'Edsger W. Dijkstra',
+      likes: 17
+    };
+    expect(listHelper.mostLikesVanillaJS(blogs)).toEqual(expected);
+    expect(listHelper.mostLikes(blogs)).toEqual(expected);
   })
 });
