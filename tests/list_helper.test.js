@@ -71,3 +71,25 @@ describe('total likes', () => {
     expect(listHelper.totalLikes(blogs)).toBe(36);
   })
 });
+
+describe.only('favorite blog', () => {
+  test('of empty list is undefined', () => {
+    expect(listHelper.favoriteBlog([])).toBe(undefined);
+  });
+
+  test('when list has only one blog equals this one', () => {
+    expect(listHelper.favoriteBlog([blogs[0]])).toEqual({
+      title: "React patterns",
+      author: "Michael Chan",
+      likes: 7,
+    });
+  });
+
+  test('of bigger list return correct one', () => {
+    expect(listHelper.favoriteBlog(blogs)).toEqual({
+      title: "Canonical string reduction",
+      author: "Edsger W. Dijkstra",
+      likes: 12,
+    });
+  })
+});
